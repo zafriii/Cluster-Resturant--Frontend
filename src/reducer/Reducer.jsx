@@ -29,111 +29,39 @@ const Reducer = (state, action) => {
          filteredFoods: filteredByType,
        }}
 
-    // case "ADD_TO_CART" :
-    //    return{
-    //     ...state,
-    //     cart:[...state.cart, action.payload]
-    //    }
-
-  //   case "ADD_TO_CART":
-  // const newItem = { ...action.payload, quantity: 1 };
-  // return {
-  //   ...state,
-  //   cart: [...state.cart, newItem]
-  // };
-
-
-  // case "ADD_TO_CART":
-  // const newItem = action.payload;
-  // const existingItemIndex = state.cart.findIndex(item => item.id === newItem.id);
-
-  // if (existingItemIndex !== -1) {
-  //   const updatedCart = [...state.cart];
-  //   updatedCart[existingItemIndex].quantity += 1;
-
-  //   return {
-  //     ...state,
-  //     cart: updatedCart
-  //   };
-  // } else {
-  //   const newItemWithQuantity = { ...newItem, quantity: 1 };
-  //   return {
-  //     ...state,
-  //     cart: [...state.cart, newItemWithQuantity]
-  //   };
-  // }
-
-  case "ADD_TO_CART":
-  const newItem = action.payload;
-  const existingItemIndex = state.cart.findIndex(item => item.id === newItem.id);
-
-  if (existingItemIndex !== -1) {
-    // Item already exists in the cart, update its quantity
-    const updatedCart = state.cart.map((item, index) => {
-      if (index === existingItemIndex) {
-        return { ...item, quantity: item.quantity + 1 }; // Increment quantity by 1
-      }
-      return item;
-    });
-
-    return {
-      ...state,
-      cart: updatedCart
-    };
-  } else {
-    // Item doesn't exist in the cart, add it
-    const newItemWithQuantity = { ...newItem, quantity: 1 };
-    return {
-      ...state,
-      cart: [...state.cart, newItemWithQuantity]
-    };
-  }
-       
-    case "REMOVE_ITEM" :
-       return{
+    
+      case "ADD_TO_CART":
+      const newItem = action.payload;
+      const existingItemIndex = state.cart.findIndex(item => item.id === newItem.id);
+    
+      if (existingItemIndex !== -1) {
+        // Item already exists in the cart, update its quantity
+        const updatedCart = state.cart.map((item, index) => {
+          if (index === existingItemIndex) {
+            return { ...item, quantity: item.quantity + 1 }; // Increment quantity by 1
+          }
+          return item;
+        });
+    
+        return {
           ...state,
-          cart:state.cart.filter((item) => item.id !== action.payload)
-        } 
+          cart: updatedCart
+        };
+      } else {
+        // Item doesn't exist in the cart, add it
+        const newItemWithQuantity = { ...newItem, quantity: 1 };
+        return {
+          ...state,
+          cart: [...state.cart, newItemWithQuantity]
+        };
+      }
+       
+      case "REMOVE_ITEM" :
+         return{
+            ...state,
+            cart:state.cart.filter((item) => item.id !== action.payload)
+          } 
         
-        
-        // case "DECREMENT":
-        //   let updatedItem = state.cart.map((curElem) => {
-        //     if(curElem.id ===  action.payload) {
-        //       console.log(curElem)
-        //       let decAmount = curElem.quantity - 1;
-        //       if(decAmount <= 1 ) {
-        //         decAmount = 1;
-        //       } 
-
-        //       return{
-        //         ...curElem,
-        //         quantity: decAmount
-        //       }
-        //     } else{
-        //       return curElem
-        //     }
-        //   })
-
-        //   return{...state, cart: updatedItem};
-
-
-        //   case "INCREMENT":
-        //   let updatedItem2 = state.cart.map((curElem) => {
-        //     if(curElem.id ===  action.payload) {
-        //       console.log(curElem)
-        //       let incAmount = curElem.quantity + 1;          
-        //       return{
-        //         ...curElem,
-        //         quantity: incAmount
-        //       }
-        //     } else{
-        //       return curElem
-        //     }
-        //   })
-
-        //   return{...state, cart: updatedItem2};
-
-
           case "DECREMENT":
             let updatedItem = state.cart.map((curElem) => {
               if (curElem.id === action.payload) {
